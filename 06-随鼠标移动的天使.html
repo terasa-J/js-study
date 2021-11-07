@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鼠标事件对象</title>
+    <style>
+        img {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="imgs/angel.gif" alt="">
+    <script>
+        let pic = document.querySelector('img');
+        document.addEventListener('mousemove', function(event) {
+            let x = event.pageX;
+            let y = event.pageY;
+            // 为了图片位置居中在 鼠标 ，分别减去图片的一半
+            pic.style.left = x - 35 + 'px';
+            pic.style.top = y - 40 + 'px';
+        })
+    </script>
+</body>
+
+</html>
