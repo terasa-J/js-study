@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定时器-setInterval</title>
+</head>
+
+<body>
+    手机号码：<input type="text"><button>发送</button>
+
+    <script>
+        let btn = document.querySelector('button');
+        let time = 3;
+        btn.addEventListener('click', function() {
+            btn.disabled = true;
+            let timer = setInterval(function() {
+                if (time > 0) {
+                    btn.innerHTML = '还剩下' + time + '秒再次点击';
+                    time--;
+                } else {
+                    // 清除定时器和复原按钮
+                    clearInterval(timer);
+                    time = 3;
+                    btn.disabled = false;
+                    btn.innerHTML = '发送';
+                }
+            }, 1000)
+        })
+    </script>
+</body>
+
+
+</html>
