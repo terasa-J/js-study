@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>extends与super与this</title>
+</head>
+
+<body>
+  <script>
+    class Car {
+      constructor(color, name, price) {
+        this.color = color;
+        this.name = name;
+        this.price = price;
+      }
+      getSpeed() {
+        console.log(this.color);
+      }
+    }
+    class Bmw extends Car {
+      constructor(color, name, price) {
+        super(); //调用父亲的构造函数，把数值传递过去
+        this.color = color;
+        this.name = name;
+        this.price = price;
+      }
+      getSpeed() {
+        // console.log(this.price);
+        super.getSpeed(); //调用父亲的getSpeed函数
+      }
+    }
+    let car1 = new Bmw('red', '宝马', '99');
+    console.log(car1.color);
+    console.log(car1.name);
+    console.log(car1.price);
+    // 就近原则调用
+    car1.getSpeed();
+  </script>
+</body>
+
+</html>
