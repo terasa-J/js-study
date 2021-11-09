@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>offset应用</title>
+    <style>
+        .box {
+            width: 300px;
+            height: 300px;
+            margin: 50px;
+            background: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <script>
+        let box = document.querySelector('.box');
+        box.addEventListener('mousemove', function(e) {
+            // 当前 鼠标 距离页面文档的距离
+            let pageX = e.pageX;
+            let pageY = e.pageY;
+            // box盒子距离页面文档距离
+            let offsetLeft = box.offsetLeft;
+            let offsetTop = box.offsetTop;
+
+            let x = pageX - offsetLeft;
+            let y = pageY - offsetTop;
+
+            box.innerHTML = "鼠标当前的x位置：" + x + "，y位置：" + y;
+
+        })
+    </script>
+</body>
+
+</html>
