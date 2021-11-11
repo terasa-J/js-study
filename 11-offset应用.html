@@ -19,7 +19,7 @@
     <div class="box"></div>
     <script>
         let box = document.querySelector('.box');
-        box.addEventListener('mousemove', function(e) {
+        box.addEventListener('mousemove', function (e) {
             // 当前 鼠标 距离页面文档的距离
             let pageX = e.pageX;
             let pageY = e.pageY;
@@ -32,7 +32,21 @@
 
             box.innerHTML = "鼠标当前的x位置：" + x + "，y位置：" + y;
 
-        })
+        });
+
+
+        // 1.立即执行函数,不需要调用，可以创建独立的作用域
+        (function () {
+            console.log(888);
+        }());
+
+        (function sum(a, b) {
+            console.log(a + b);
+        }(1, 2));
+
+        (function () { console.log(7878); }());
+
+        (function getAre(a, c) { console.log((a + c) / 2); }(4, 5));
     </script>
 </body>
 

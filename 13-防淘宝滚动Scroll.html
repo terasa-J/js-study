@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>scroll应用</title>
+  <style>
+    .slider-bar {
+      position: absolute;
+      left: 50%;
+      top: 300px;
+      margin-left: 600px;
+      width: 45px;
+      height: 130px;
+      background-color: pink;
+    }
+
+    .w {
+      width: 1200px;
+      margin: 10px auto;
+    }
+
+    .header {
+      height: 150px;
+      background-color: purple;
+    }
+
+    .banner {
+      height: 250px;
+      background-color: skyblue;
+    }
+
+    .main {
+      height: 1000px;
+      background-color: yellowgreen;
+    }
+
+    span {
+      display: none;
+      position: absolute;
+      bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slider-bar">
+    <span class="goBack">返回顶部</span>
+  </div>
+  <div class="header w">头部区域</div>
+  <div class="banner w">banner区域</div>
+  <div class="main w">主体部分</div>
+  <script>
+    let sliderbar = document.querySelector('.slider-bar');
+    let sliderbarTop = sliderbar.offsetTop;
+
+    let banner = document.querySelector('.banner');
+    let bannerTop = banner.offsetTop;
+
+    let main = document.querySelector('.main');
+    let mainTop = main.offsetTop;
+
+    let goBack = document.querySelector('.goBack');
+
+    // 页面滚动事件 scroll
+    document.addEventListener('scroll', function () {
+
+      // window.pageYOffset:整个页面距离顶部的距离
+      // scrollTop:内容距离顶部的距离
+      if (window.pageYOffset >= bannerTop) {
+        sliderbar.style.position = 'fixed'
+        sliderbar.style.top = sliderbarTop - bannerTop + 'px'
+      } else {
+        sliderbar.style.position = 'absolute'
+        sliderbar.style.top = '300px'
+      }
+
+      // 【返回上一页】 字体显示
+      if (window.pageYOffset >= mainTop) {
+        goBack.style.display = 'block'
+      } else {
+        goBack.style.display = 'none'
+      }
+    })
+  </script>
+</body>
+
+</html>
