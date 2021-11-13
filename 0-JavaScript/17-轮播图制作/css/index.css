@@ -12,7 +12,7 @@
     width: 721px;
     height: 455px;
     background-color: purple;
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 .focus ul {
