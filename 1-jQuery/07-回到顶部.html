@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>scroll、offset、position属性</title>
+    <script src="./jquery.min.js"></script>
+    <style>
+        body {
+            height: 2000px;
+        }
+        
+        .back {
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            background-color: pink;
+            right: 30px;
+            bottom: 100px;
+            display: none;
+        }
+        
+        .container {
+            width: 900px;
+            height: 500px;
+            background-color: skyblue;
+            margin: 400px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="back">返回顶部</div>
+    <div class="container"></div>
+
+    <script>
+        $(function() {
+            // 1.显示返回顶部按钮
+            let top = $('.container').offset().top
+            $(window).scroll(function() {
+                if ($(document).scrollTop() >= top) {
+                    $('.back').fadeIn()
+                } else {
+                    $('.back').fadeOut()
+                }
+            })
+
+            // 2.点击返回顶部
+            $('.back').click(function() {
+                // 不能是文档, 而是 html和body元素做动画
+                $('html,body').stop().animate({
+                    scrollTop: 0
+                })
+            })
+        })
+    </script>
+</body>
+
+</html>
