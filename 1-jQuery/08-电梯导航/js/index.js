@@ -19,7 +19,7 @@ $(function() {
         if (flag) {
             // 4.页面内容滚动，对应的导航同步变红色
             $('.floor .w').each(function(index, ele) {
-                if ($(document).scrollTop() > $(ele).offset().top) {
+                if ($(document).scrollTop() >= $(ele).offset().top) {
                     $('.fixedtool li').eq(index).addClass('current').siblings().removeClass('current')
                 }
             })
