@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>构造函数</title>
+</head>
+
+<body>
+
+  <script>
+    // 【2】Object.defindeProperty()
+    // let obj = {
+    //   name: 'Amy',
+    //   age: 10,
+    //   address: 'beijing'*
+    // }
+    // Object.defineProperty(obj, 'color', {
+    //   value: 'red',
+    //   writable: true,
+    //   // 是否可以枚举，用Object.keys(obj) 方法，能否获取到key
+    //   enumerable: true,
+    //   // 是否可以修改或删除 delete obj.color
+    //   configurable: false
+    // })
+
+    // 【3】构造函数
+    // let obj = new Object();
+    // 字面量
+    // let obj = {}
+
+    // 【构造函数】
+    function Car(name, color) {
+      // this.XX: 这些属于实例成员。通过实例对象去访问的
+      this.name = name
+      this.color = color
+      this.run = function () {
+        console.log("我在开车");
+      }
+    }
+    let bmw = new Car('宝马', 'red');
+    let bc = new Car('奔驰', 'black');
+    // this.XX：这种属于这些属于【实例成员】。通过实例对象去访问的
+    bmw.run()
+    console.log(bmw.name);
+    console.log(bmw.color);
+    // 这种属于【静态成员】，通过构造函数直接创建的
+    Car.type = "taxi"
+    console.log(Car.type);
+    // 【原型对象 prototype】
+    console.dir(Car);
+    // 当公共方法，写在构造函数中，此时各自的内存，地址不一样，是false
+    console.log(bmw.run === bc.run)
+    Car.prototype.stop = function () {
+      console.log("我停车了");
+    }
+    bmw.stop();
+    bc.stop();
+    // 当公共方法，写在原型对象时候,这时候,共享内存,就是true
+    console.log(bmw.stop === bc.stop)
+    // 【对象的原型 __proto__】
+    console.log(bmw);
+    console.log(bmw.__proto__ === Car.prototype)
+    // 【constructor 构造函数】
+    console.log('constructor 构造函数');
+    Car.prototype = {
+      // 需要手动指向，构造函数的。因为这时候是覆盖了prototype的整个对象。不是89行的写法
+      constructor: Car,
+      fast: function () {
+        console.log("加速");
+      },
+      slow: function () {
+        console.log("减速");
+      }
+    }
+    let dz = new Car('大众', 'red');
+    console.log(dz.__proto__);
+    console.log(Car.prototype);
+    console.log(dz.__proto__.constructor);
+    console.log(Car.prototype.constructor);
+    // 【原型链】
+    console.log("原型链");
+    // true,相等
+    console.log(Car.prototype.__proto__ === Object.prototype);
+    // null
+    console.log(Object.prototype.__proto__);
+
+  </script>
+</body>
+
+</html>
