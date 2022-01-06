@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>02-借用父构造函数继承属性+方法</title>
+</head>
+
+<body>
+  <script>
+    function Father(uname, age) {
+      // this指向，father的实列对象
+      this.uname = uname
+      this.age = age
+    }
+    Father.prototype.money = function () {
+      console.log("我是父亲，我要赚钱");
+    }
+
+    function Son(uname, age, score) {
+      // this指向，Son的实列对象
+      // 1：借用父构造函数继承属性 call 方法
+      Father.call(this, uname, age)
+      this.score = score
+    }
+    // 2：借用父构造函数继承方法
+    // 这样Father.prototype对象也会一起变化
+    // Son.prototype = Father.prototype;
+
+    Son.prototype = new Father();
+    // 利用对象的方式，直接修改原型对象，记得需要修改构造函数
+    Son.prototype.constructor = Son;
+    Son.prototype.study = function () {
+      console.log("我是孩子，我要读书");
+    }
+
+    let son = new Son("名字", 10, 90)
+    console.log(son);
+    console.log(Father.prototype);
+  </script>
+</body>
+
+</html>

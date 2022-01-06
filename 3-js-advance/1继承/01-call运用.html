@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>call运用</title>
+</head>
+
+
+<body>
+
+  <script>
+    function fun(x, y) {
+      console.log("我是谁");
+      console.log(this);
+      console.log(x + y);
+    }
+    let obj = {
+      name: '111',
+      age: 10
+    }
+    // 1.调用函数  this == windox
+    fun.call()
+    // 2.改变this的指向  this == obj
+    fun.call(obj, 1, 2)
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>es5中新增方法</title>
+</head>
+
+<body>
+  <script>
+    // forEach 方法，遍历数组
+    console.log("====forEach 方法");
+    let arr = [11, 22, 33]
+    let sum = 0
+    arr.forEach(function (value, index, arr) {
+      console.log(value);
+      console.log(index);
+      console.log(arr);
+      sum += value
+    })
+    console.log(sum);
+
+    // filter 方法,返回一个新数组
+    console.log("====filter 方法");
+    let arrFilter = [77, 88, 99]
+    let newArr = arrFilter.filter(function (value, index, arr) {
+      return value > 80
+    })
+    console.log(newArr);
+
+    // some方法，查找数组是否有满足条件的元素，返回true与false。只有满足条件，就跳出循环
+    console.log("====some 方法");
+    let arrSome = [77, 88, 99]
+    let flag = arrSome.some(function (value, index, arr) {
+      return value > 100
+    })
+    console.log(flag);
+
+    // 【2】Object.defindeProperty()
+    let obj = {
+      name: 'Amy',
+      age: 10,
+      address: 'beijing'
+    }
+    Object.defineProperty(obj, 'color', {
+      value: 'red',
+      writable: true,
+      // 是否可以枚举，用Object.keys(obj) 方法，能否获取到key
+      enumerable: true,
+      // 是否可以修改或删除 delete obj.color
+      configurable: false
+    })
+  </script>
+</body>
+
+</html>
