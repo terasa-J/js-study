@@ -9,43 +9,8 @@
 </head>
 
 <body>
-  <button>按钮1</button>
-  <button>按钮2</button>
-  <button>按钮3</button>
-  <button>按钮4</button>
-  <button>按钮5</button>
 
   <script>
-    // 【1】闭包解决的问题
-    // 以下的i，使用var定义，没有块级作用域的概念。改用let即可
-    // window.addEventListener("load", function () {
-    //   let btns = document.querySelectorAll('button')
-    //   for (var i = 0; i < btns.length; i++) {
-    //     btns[i].addEventListener('click', function () {
-    //       for (var i = 0; i < btns.length; i++) {
-    //         btns[i].style.backgroundColor = ''
-    //       }
-    //       console.log(i);
-    //       btns[i].style.backgroundColor = 'red'
-    //     })
-    //   }
-    // })
-    // window.addEventListener("load", function () {
-    //   let btns = document.querySelectorAll('button')
-    //   for (var i = 0; i < btns.length; i++) {
-    //     btns[i].onclick = (function (index) {
-    //       return function () {
-    //         for (var i = 0; i < btns.length; i++) {
-    //           btns[i].style.backgroundColor = ''
-    //         }
-    //         console.log(index);
-    //         btns[index].style.backgroundColor = 'red'
-    //       }
-    //     })(i)
-    //   }
-    // })
-
-
 
     // 【3】构造函数
     // let obj = new Object();

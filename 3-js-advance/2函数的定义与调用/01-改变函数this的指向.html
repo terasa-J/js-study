@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button>按钮1</button>
+  <button>按钮2</button>
+  <button>按钮3</button>
+
+  <script>
+    // 【call 函数】
+    console.log("-----【call 函数】------");
+    // 1.调用函数
+    let obj = {
+      name: "call OBJ"
+    }
+    function fun() {
+      console.log(this);
+    }
+    // 此时this：window
+    fun.call()
+    // 2.改变函数指向
+    // 此时this：obj
+    fun.call(obj)
+    // 3.继承
+    function Father(name, age) {
+      this.name = name
+      this.age = age
+    }
+    function Son(name, age) {
+      Father.call(this, name, age)
+    }
+    let son = new Son("我是孩子", 18)
+    // 此时this：Son
+    console.log(son);
+
+    // 【apply 函数】
+    console.log("-----【apply 函数】------");
+    // 1.调用函数
+    let objApply = {
+      name: "apply OBJ"
+    }
+    function applyFun(param1, param2) {
+      console.log(this);
+      console.log(param1);
+      console.log(param2);
+    }
+    // 此时this：window
+    applyFun.apply()
+    // 此时this：objApply
+    applyFun.apply(objApply, [1, "123"])
+    // 2.改变this指向，但是入参只能是数组。一般应用于扩展数组的函数方式
+    let arr1 = [1, 5, 80, 99]
+    let max = Math.max.apply(Math, arr1)
+    let min = Math.min.apply(Math, arr1)
+    console.log(max, min);
+
+
+    // 【bind 函数 常用！！！】
+    console.log("-----【bind 函数】------");
+    // 1.改变函数this指向，函数不会立即执行，返回一个新函数
+    let objBind = {
+      name: "bind OBJ"
+    }
+    function bindFun(param1, param2) {
+      console.log(this);
+      console.log(param1);
+      console.log(param2);
+    }
+    bindFun()
+    let newFun = bindFun.bind(objBind)
+    newFun(1, 2)
+
+    // 点击按钮后，按钮不可用。3秒后正常使用
+    let buttons = document.querySelectorAll('button')
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].onclick = function () {
+        this.disabled = true
+        setTimeout(function () {
+          // 定时器中的函数，this指向window
+          // this.disabled = false
+          // 使用bind后，此时this在定时器函数外部，指向的当前点击的btn
+          this.disabled = false
+        }.bind(this), 3000)
+      }
+    }
+
+  </script>
+</body>
+
+</html>

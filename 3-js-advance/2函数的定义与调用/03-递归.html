@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>递归</title>
+</head>
+
+<body>
+  <script>
+    // 【递归函数】
+    // 求1 * 2 * 3 * 4 * 5 * .... * n
+    console.log("-----递归函数----");
+    function f(n) {
+      if (n == 1) {
+        return 1
+      }
+      return n * f(n - 1)
+    }
+    console.log(f(3));
+
+    console.log("-----斐波那契数列----");
+    function fb(n) {
+      if (n == 1 || n == 2) {
+        return 1
+      }
+      return fb(n - 1) + fb(n - 2)
+    }
+    console.log(fb(3));
+
+    console.log("-----括号匹配----");
+    function isValid(str) {
+      let strArr = str.split('')
+
+      let map = new Map();
+      map.set(')', '(')
+      map.set(']', '[')
+      map.set('}', '{')
+
+      let stack = []
+      for (let i = 0; i < strArr.length; i++) {
+        if (map.has(strArr[i])) {
+          // 右括号，就匹配
+          if (stack.length === 0 || stack.pop() !== map.get(strArr[i])) {
+            return false
+          }
+        } else {
+          // 左括号 入栈
+          stack.push(strArr[i])
+        }
+      }
+      return stack.length === 0
+    }
+    console.log(isValid('([])'));
+
+    console.log("-----浅拷贝----");
+    let obj = {
+      name: 'amy',
+      age: 18,
+      sing: {
+        music: '天天向上'
+      },
+      color: ['red', 'blue']
+    }
+    let o = {}
+    // Object.assign(o, obj);
+    // o.sing.music = '8888'
+    // // 问题：同步修原数据
+    // console.log(obj);
+
+    console.log("-----深拷贝----");
+    function deepCopy(newObj, oldObj) {
+      // 判断数据类型
+      for (let k in oldObj) {
+        let item = oldObj[k]
+        if (item instanceof Array) {
+          // 是否为数组
+          newObj[k] = []
+          deepCopy(newObj[k], item)
+        } else if (item instanceof Object) {
+          // 是否为对象
+          newObj[k] = {}
+          deepCopy(newObj[k], item)
+        } else {
+          // 为简单类型
+          newObj[k] = item
+        }
+      }
+    }
+    deepCopy(o, obj)
+    console.log(o);
+  </script>
+</body>
+
+</html>

@@ -1,8 +1,8 @@
 // that 指向 整一个#tab  对象
-let that;
+// let that;
 class Tab {
     constructor(id) {
-        that = this
+        // that = this
         // 获取元素
         this.main = document.querySelector(id)
 
@@ -20,7 +20,7 @@ class Tab {
 
         // 绑定事件
         // 添加按钮
-        this.tabadd.onclick = this.addTab;
+        this.tabadd.onclick = this.addTab.bind(this.tabadd, this);
 
         // 每一个小li的点击
         for (let i = 0; i < this.lis.length; i++) {
@@ -28,14 +28,14 @@ class Tab {
             this.lis[i].index = i
             // 不能加括号，不然就直接触发了，
             // 这里表示，等于这个function方法，不是调用
-            this.lis[i].onclick = this.toggleTab
-            this.removes[i].onclick = this.removeTab
+            this.lis[i].onclick = this.toggleTab.bind(this.lis[i], this)
+            this.removes[i].onclick = this.removeTab.bind(this.removes[i], this)
             this.spans[i].ondblclick = this.editTab
             this.sections[i].ondblclick = this.editTab
         }
     }
     // 1.切换功能
-    toggleTab() {
+    toggleTab(that) {
         that.clearClass()
         // 此处this指，当前点击的li，li没有section
         this.className = 'liactive'
@@ -57,7 +57,7 @@ class Tab {
         this.spans = this.main.querySelectorAll('.fisrstnav li span:first-child')
     }
     // 2.添加功能
-    addTab() {
+    addTab(that) {
         that.clearClass()
         let random = Math.random()
         let li = '<li class="liactive"><span>新的选项卡</span><span class="iconfont icon-guanbi"></span></li>'
@@ -72,7 +72,7 @@ class Tab {
     }
 
     // 3.删除功能
-    removeTab(e) {
+    removeTab(that, e) {
         // 由于父元素绑定了点击切换事件，所有应该阻止点击时冒泡
         // 取消事件冒泡的中的 tab切换
         e.stopPropagation();

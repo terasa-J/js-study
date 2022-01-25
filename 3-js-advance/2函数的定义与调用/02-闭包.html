@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>闭包</title>
+</head>
+
+<body>
+  <!-- 【案列1】 -->
+  <button>按钮1</button>
+  <button>按钮2</button>
+  <button>按钮3</button>
+  <button>按钮4</button>
+  <button>按钮5</button>
+
+  <script>
+    // 【1】闭包解决的问题
+    // 以下的i，使用var定义，没有块级作用域的概念。改用let即可
+
+    // 错误案例
+    // window.addEventListener("load", function () {
+    //   let btns = document.querySelectorAll('button')
+    //   for (var i = 0; i < btns.length; i++) {
+    //     btns[i].addEventListener('click', function () {
+    //       for (var i = 0; i < btns.length; i++) {
+    //         btns[i].style.backgroundColor = ''
+    //       }
+    //       console.log(i);
+    //       // 此时的i=5，btns[i] = undefined
+    //       btns[i].style.backgroundColor = 'red'
+    //     })
+    //   }
+    // })
+
+    // 闭包应用
+    // 立即执行函数
+    window.addEventListener("load", function () {
+      let btns = document.querySelectorAll('button')
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].onclick = (function (index) {
+          return function () {
+            for (var i = 0; i < btns.length; i++) {
+              btns[i].style.backgroundColor = ''
+            }
+            console.log(index);
+            btns[index].style.backgroundColor = 'red'
+          }
+        })(i)
+      }
+    })
+
+
+    //【案列2】 
+    // 闭包应用3：计算打车价格
+    // 原理:立即执行函数+return函数（return的函数中想要使用的变量可以通过立即执行函数来获取）
+    // 注意：这里只是为了演示闭包在实际中可以通过什么方式使用，这里的业务其实不应该用闭包来实现
+    // 业务描述：打车起步价为10元（3公里内），超出一公里增加5元，若堵车，需添加10元堵车费
+
+    function Car() {
+      let start = 10
+      let totol = 0
+      return {
+        price: function (n) {
+          if (n <= 3) {
+            totol = start
+          } else {
+            totol = start + (n - 3) * 5
+          }
+          return totol
+        },
+        yd: function (flag) {
+          return flag ? totol += 10 : totol
+        }
+      }
+    }
+
+    // 函数Car()是一个闭包
+    let car = new Car()
+    console.log(car.price(3));  //10
+    console.log(car.yd(true));  //20
+
+    console.log(car.price(7));  //30
+    console.log(car.yd(true));  //40
+
+
+    //【案列3】 
+    // 1： 有闭包吗？没有
+    // var name = "The Window";
+    // var object = {
+    //   name: "My Object",
+    //   getNameFunc: function () {
+    //     return function () {
+    //       console.log(this); //window
+    //       return this.name;
+    //     };
+    //   }
+    // };
+    // console.log(object.getNameFunc()()) //"The Window"
+
+
+    // 思考题 2：有闭包吗？有
+    var name = "The Window";
+    var object = {
+      name: "My Object",
+      getNameFunc: function () {
+        // 这里的this指向的是getNameFunc()函数 调用者object
+        var that = this;
+        return function () {
+          console.log(that);
+          return that.name;
+        };
+      }
+    };
+    console.log(object.getNameFunc()()) //"My Object"
+  </script>
+</body>
+
+</html>
